@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :shows
   resources :screens
   resources :theatres
   resources :users
