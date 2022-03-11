@@ -23,8 +23,8 @@ ActiveRecord::Schema.define(version: 2022_03_09_182900) do
     t.time "st"
     t.time "ed"
     t.integer "money"
-    t.string "av_seats"
-    t.string "oc_seats"
+    t.string "av_seats", default: "--- []\n"
+    t.string "oc_seats", default: "--- []\n"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
