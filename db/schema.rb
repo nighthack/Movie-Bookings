@@ -10,13 +10,33 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_09_182900) do
+ActiveRecord::Schema.define(version: 2022_03_14_153349) do
+
+  create_table "bookings", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "show_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "screen_id"
+    t.index ["screen_id"], name: "index_bookings_on_screen_id"
+    t.index ["show_id"], name: "index_bookings_on_show_id"
+    t.index ["user_id"], name: "index_bookings_on_user_id"
+  end
+
+  create_table "movies", force: :cascade do |t|
+    t.string "m_name"
+    t.string "language"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "screens", force: :cascade do |t|
     t.string "s_name"
     t.string "s_type"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "theatre_id"
+    t.index ["theatre_id"], name: "index_screens_on_theatre_id"
   end
 
   create_table "shows", force: :cascade do |t|
@@ -27,6 +47,12 @@ ActiveRecord::Schema.define(version: 2022_03_09_182900) do
     t.string "oc_seats", default: "--- []\n"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "theatre_id"
+    t.integer "screen_id"
+    t.integer "movie_id"
+    t.index ["movie_id"], name: "index_shows_on_movie_id"
+    t.index ["screen_id"], name: "index_shows_on_screen_id"
+    t.index ["theatre_id"], name: "index_shows_on_theatre_id"
   end
 
   create_table "theatres", force: :cascade do |t|
@@ -45,4 +71,11 @@ ActiveRecord::Schema.define(version: 2022_03_09_182900) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "bookings", "screens"
+  add_foreign_key "bookings", "shows"
+  add_foreign_key "bookings", "users"
+  add_foreign_key "screens", "theatres"
+  add_foreign_key "shows", "movies"
+  add_foreign_key "shows", "screens"
+  add_foreign_key "shows", "theatres"
 end
