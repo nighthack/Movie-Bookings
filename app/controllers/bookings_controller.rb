@@ -16,9 +16,13 @@ class BookingsController < ApplicationController
   # POST /bookings
   def create
     @booking = Booking.new(booking_params)
+    @seats = Show.find(params[:av_seats])
 
     if @booking.save
       render json: @booking, status: :created, location: @booking
+      if @booking.seat == @seats
+        
+
     else
       render json: @booking.errors, status: :unprocessable_entity
     end
@@ -46,6 +50,6 @@ class BookingsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def booking_params
-      params.fetch(:booking, {})
+      params.require(:booking).permit(:seat)
     end
 end
