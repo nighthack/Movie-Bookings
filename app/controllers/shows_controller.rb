@@ -27,7 +27,6 @@ class ShowsController < ApplicationController
   # PATCH/PUT /shows/1
   def update
     if @show.update(show_params)
-      render json: @show
     else
       render json: @show.errors, status: :unprocessable_entity
     end
