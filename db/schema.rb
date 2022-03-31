@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_16_165628) do
+ActiveRecord::Schema.define(version: 2022_03_30_143803) do
 
   create_table "bookings", force: :cascade do |t|
     t.integer "user_id", null: false
@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(version: 2022_03_16_165628) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "screen_id"
     t.string "seat"
+    t.integer "po"
     t.index ["screen_id"], name: "index_bookings_on_screen_id"
     t.index ["show_id"], name: "index_bookings_on_show_id"
     t.index ["user_id"], name: "index_bookings_on_user_id"
@@ -70,6 +71,7 @@ ActiveRecord::Schema.define(version: 2022_03_16_165628) do
     t.date "dob"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "password"
   end
 
   add_foreign_key "bookings", "screens"

@@ -5,12 +5,19 @@ class BookingsController < ApplicationController
   def index
     @bookings = Booking.all
 
-    render json: @bookings
+    render json: @bookings.booking_params
   end
 
   # GET /bookings/1
   def show
-    render json: @booking
+    headPassword = request.headers['Pass']
+    booked = User.find(params[:id])
+    
+    if booked.password.include? headPassword
+      render json: @booking
+    else
+      render json: @booking.errors, status: :unprocessable_entity
+    end
   end
 
   # POST /bookings
